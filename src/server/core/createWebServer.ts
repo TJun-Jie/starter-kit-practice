@@ -1,4 +1,3 @@
-// create http server
 import http, { Server } from 'http';
 import * as Sentry from '@sentry/node';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
@@ -102,7 +101,9 @@ const createWebServer = async (): Promise<WebServerCreation> => {
             const scheme = req.header('X-Forwarded-Scheme') || 'https';
 
             // apply cors
-            callback(null, { origin: host ? `${scheme}://${host}` : false });
+            callback(null, {
+                origin: [host ? `${scheme}://${host}` : false, 'https://studio.apollographql.com'].filter(Boolean),
+            });
         })
     );
 
