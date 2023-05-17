@@ -1,0 +1,13 @@
+#import "./life.fragment.graphql"
+
+query GetAllLives {
+    livesList: listLives {
+        ...LifeListData
+    }
+}
+
+query getOnePersonLife($getLifeId: ObjectID!) {
+    life: getLife(id: $getLifeId) {
+        ...FullLifeData
+    }
+}

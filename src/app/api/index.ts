@@ -390,6 +390,22 @@ export type RetrieveLinkQueryVariables = Exact<{
 
 export type RetrieveLinkQuery = { __typename?: 'Query', retrieveLink?: { __typename: 'ResetPasswordLink', token: string } | null };
 
+export type LifeListDataFragment = { __typename?: 'Life', fullName: string, hobbies: Array<string>, description: string, id: string };
+
+export type FullLifeDataFragment = { __typename?: 'Life', birthday: string | Date, description: string, fullName: string, hobbies: Array<string>, title: string, id: string };
+
+export type GetAllLivesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllLivesQuery = { __typename?: 'Query', livesList: Array<{ __typename?: 'Life', fullName: string, hobbies: Array<string>, description: string, id: string }> };
+
+export type GetOnePersonLifeQueryVariables = Exact<{
+  getLifeId: Scalars['ObjectID'];
+}>;
+
+
+export type GetOnePersonLifeQuery = { __typename?: 'Query', life?: { __typename?: 'Life', birthday: string | Date, description: string, fullName: string, hobbies: Array<string>, title: string, id: string } | null };
+
 type SystemMessageData_MessageNotice_Fragment = { __typename: 'MessageNotice', date: string | Date, message: string };
 
 type SystemMessageData_UserSessionRevoked_Fragment = { __typename: 'UserSessionRevoked', date: string | Date, displayNotice: boolean };
@@ -537,6 +553,8 @@ export type CompleteWebPublicKeyCredentialRegistrationMutationVariables = Exact<
 
 export type CompleteWebPublicKeyCredentialRegistrationMutation = { __typename?: 'Mutation', completeWebPublicKeyCredentialRegistration: boolean };
 
+export const LifeListDataFragmentDoc = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LifeListData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Life"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode;
+export const FullLifeDataFragmentDoc = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullLifeData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Life"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"birthday"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode;
 export const SystemMessageDataFragmentDoc = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SystemMessageData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SystemMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserSessionRevoked"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"displayNotice"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MessageNotice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode;
 export const UserPreviewDataFragmentDoc = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserPreviewData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}}]}}]} as unknown as DocumentNode;
 export const UserListDataFragmentDoc = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserListData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"isAuthenticatorEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"isPasswordExpired"}}]}}]} as unknown as DocumentNode;
@@ -571,6 +589,63 @@ export function useRetrieveLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type RetrieveLinkQueryHookResult = ReturnType<typeof useRetrieveLinkQuery>;
 export type RetrieveLinkLazyQueryHookResult = ReturnType<typeof useRetrieveLinkLazyQuery>;
 export type RetrieveLinkQueryResult = Apollo.QueryResult<RetrieveLinkQuery, RetrieveLinkQueryVariables>;
+export const GetAllLivesDocument = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllLives"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"livesList"},"name":{"kind":"Name","value":"listLives"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LifeListData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LifeListData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Life"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetAllLivesQuery__
+ *
+ * To run a query within a React component, call `useGetAllLivesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllLivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllLivesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllLivesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllLivesQuery, GetAllLivesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllLivesQuery, GetAllLivesQueryVariables>(GetAllLivesDocument, options);
+      }
+export function useGetAllLivesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllLivesQuery, GetAllLivesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllLivesQuery, GetAllLivesQueryVariables>(GetAllLivesDocument, options);
+        }
+export type GetAllLivesQueryHookResult = ReturnType<typeof useGetAllLivesQuery>;
+export type GetAllLivesLazyQueryHookResult = ReturnType<typeof useGetAllLivesLazyQuery>;
+export type GetAllLivesQueryResult = Apollo.QueryResult<GetAllLivesQuery, GetAllLivesQueryVariables>;
+export const GetOnePersonLifeDocument = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getOnePersonLife"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getLifeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ObjectID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"life"},"name":{"kind":"Name","value":"getLife"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getLifeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullLifeData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullLifeData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Life"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"birthday"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGetOnePersonLifeQuery__
+ *
+ * To run a query within a React component, call `useGetOnePersonLifeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOnePersonLifeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOnePersonLifeQuery({
+ *   variables: {
+ *      getLifeId: // value for 'getLifeId'
+ *   },
+ * });
+ */
+export function useGetOnePersonLifeQuery(baseOptions: Apollo.QueryHookOptions<GetOnePersonLifeQuery, GetOnePersonLifeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOnePersonLifeQuery, GetOnePersonLifeQueryVariables>(GetOnePersonLifeDocument, options);
+      }
+export function useGetOnePersonLifeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOnePersonLifeQuery, GetOnePersonLifeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOnePersonLifeQuery, GetOnePersonLifeQueryVariables>(GetOnePersonLifeDocument, options);
+        }
+export type GetOnePersonLifeQueryHookResult = ReturnType<typeof useGetOnePersonLifeQuery>;
+export type GetOnePersonLifeLazyQueryHookResult = ReturnType<typeof useGetOnePersonLifeLazyQuery>;
+export type GetOnePersonLifeQueryResult = Apollo.QueryResult<GetOnePersonLifeQuery, GetOnePersonLifeQueryVariables>;
 export const ListenOnSystemDocument = /*#__PURE__*/ {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"listenOnSystem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"message"},"name":{"kind":"Name","value":"listenSystemMessages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SystemMessageData"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SystemMessageData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SystemMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserSessionRevoked"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"displayNotice"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MessageNotice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode;
 
 /**
