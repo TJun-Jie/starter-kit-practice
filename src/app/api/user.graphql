@@ -103,7 +103,7 @@ mutation refreshCredentials {
     refreshCredentials
 }
 
-mutation  applyForPasswordChange($username: String!) {
+mutation applyForPasswordChange($username: String!) {
     applyForPasswordChange(username: $username)
 }
 

@@ -1,0 +1,15 @@
+fragment LifeListData on Life {
+    fullName
+    hobbies
+    description
+    id
+}
+
+fragment FullLifeData on Life {
+    birthday
+    description
+    fullName
+    hobbies
+    title
+    id
+}
